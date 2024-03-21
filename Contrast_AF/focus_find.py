@@ -1,17 +1,22 @@
 import numpy as np
 import cv2
 
-def find_SF(image, focus_zone, matrix_type="sobel"):
-    '''Поиск значения фокуса. Изображение, координаты зоны фокуса, тип используемой матрицы sobel/laplas'''
+def find_SF(image, focus_zone, matrix_type="sobel") -> float:
+    '''Поиск значения фокуса
+    ### Args
+        image: изображение по которому ищется фокус int8 numpy array (3,H,W)
+        focus_zone: int зона используемая для фокусировки (x1,y1,x2,y2)
+        matrix_type: str тип матрицы используемой для поиска фокуса ("sobel", "laplas")
+    ### Returns
+        sf: float значение фокуса
+    '''
 
     if matrix_type == "sobel":
-        # Сумма вертикальной и горизонтальной матриц Собеля
         matrix = np.array([[2,  2,  0],
                            [2,  0, -2],
                            [0, -2, -2]])
     
     elif matrix_type == "laplas":
-        # Матрица Лапласа
         matrix = np.array([[-1, -1, -1],   
                            [-1,  8, -1],
                            [-1, -1, -1]])

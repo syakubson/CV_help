@@ -2,7 +2,7 @@ import cv2
 
 import defines as dfns
 
-class Yolo_OD:
+class YOLO_OD:
     '''Класс нейросети'''
 
     def __init__(self, nn_info):
@@ -22,7 +22,7 @@ class Yolo_OD:
         # Загрузка нейросетки
         net = cv2.dnn.readNet(weights_path, cfg_path)
 
-        # Включение CUDA, если умеется
+        # Включение CUDA, если имеется
         if cv2.cuda.getCudaEnabledDeviceCount() > 0:
             print('NN: Enabled CUDA devices:',cv2.cuda.getCudaEnabledDeviceCount())
             net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
@@ -62,9 +62,7 @@ def draw_targets(frame, class_ids, scores, boxes, all_classes, find_label):
 
     # Отрисовываем лейблы
     for i in range(len(boxes)):
-
         label = str(all_classes[int(class_ids[i])])
-
         if label == find_label:
 
             (x, y, w, h) = boxes[i]
@@ -101,7 +99,7 @@ def NN_test():
     camera.set(cv2.CAP_PROP_FPS, FPS)
 
     # Нейросеть
-    od = Yolo_OD(CURENT_NN)
+    od = YOLO_OD(CURENT_NN)
     with open(dfns.NN_CLASSES, "r") as f:
         all_classes = [line.strip() for line in f.readlines()]
     
